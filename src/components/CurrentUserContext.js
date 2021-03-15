@@ -2,7 +2,7 @@ import React, { createContext, useState } from 'react';
 import { auth, db } from './firebase';
 
 export const CurrentUserContext = createContext();
-
+//yehh
 export const CurrentUserProvider = props => {
   const [current, setcurrent] = useState();
   auth.onAuthStateChanged(user => {
