@@ -1,0 +1,41 @@
+:root{
+    --colrThr : #ef8d91;
+    --colrTwo : #f3e2d3;
+    --colrOne : #bed1d2;
+    --colrFor : #8fbcb7;
+    --colrfiv : #2eb67d;
+}
+.completProfile{
+    width: max-content;
+    padding: 30px;
+    margin: auto;
+}
+.completProfile__profileImg{
+    width: 100px;
+    margin: auto;
+    display: block;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.completProfil__form{
+    display: flex;
+    flex-direction: column;
+}
+.completProfile__age{
+    font-weight: 400;
+    font-size: 20px;
+}
+.completProfile__uploadImg{
+    font-weight: 400;
+    font-size: 20px;
+}
+.completProfile__inputFile{
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+.completProfile__button{
+    height: 40px;
+    background-color: var(--colrfiv);
+    border: none;
+}

@@ -1,0 +1,55 @@
+:root{
+    --colrThr : #ef8d91;
+    --colrTwo : #f3e2d3;
+    --colrOne : #bed1d2;
+    --colrFor : #8fbcb7;
+    --colrfiv : #2eb67d;
+}
+.auth{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 90vh;
+}
+.left__side{
+    height: 90vh;
+    position: relative;
+    background-color: var(--colrThr);
+
+}
+.auth__logo{
+    position: absolute;
+    left: 25%;
+    margin-left: -50px;
+    top: 25%;
+    margin-top: -50px;
+}
+.right__side{
+   padding: 10px 10%;
+   display: flex;
+   align-items: center;
+   background-color: var(--colrThr);
+}
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+.login__container{
+    width: 100%;
+}
+.login__container h3{
+      text-align: center;
+      text-transform: capitalize;
+}
+.login__btn{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    text-transform: capitalize;
+    background: var(--colrfiv);
+    border: none;
+    border: var(--colrfiv) solid 1px;
+}
