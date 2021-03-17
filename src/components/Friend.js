@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Friend({ name, image }) {
+function Friend({id, name, image }) {
 
   const displayMessages = e => {
     
@@ -9,6 +9,7 @@ function Friend({ name, image }) {
 
   return (
     <div
+      key ={id}
       onClick={displayMessages}
       style={{
         display: 'flex',

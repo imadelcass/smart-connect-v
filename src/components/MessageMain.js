@@ -16,18 +16,19 @@ const image =
 function MessageMain() {
   const [users, setusers] = useState([]);
   const [singleMsg, setsingleMsg] = useState('');
-  const [messages, setmessages] = useState([]);
+  const [messages, setmessages] = useState([{ body: 'sss' }]);
 
-  const [myArr, setmyArr] = useState([{ body: 'sss' }]);
-  useEffect(e => {
-    db.collection('friends')
-      .doc('vH9G5htiv9xjr0Yofi8I')
-      .collection('messages')
-      .orderBy('timestamp', 'desc')
-      .onSnapshot(snapshot => {
-        setmessages(snapshot.docs.map(doc => doc.data()));
-      });
-  }, []);
+  // 1
+  // useEffect(e => {
+  //   db.collection('friends')
+  //     .doc('vH9G5htiv9xjr0Yofi8I')
+  //     .collection('messages')
+  //     .orderBy('timestamp', 'desc')
+  //     .onSnapshot(snapshot => {
+  //       setmessages(snapshot.docs.map(doc => doc.data()));
+  //     });
+  // }, []);
+
   //add message to firestore:
   const addMessage = e => {
     e.preventDefault();
@@ -57,14 +58,16 @@ function MessageMain() {
     justifyContent: 'space-between',
     width: '95%',
   });
-
+  let inputRef = useRef();
+  // 2
   useEffect(() => {
     axios.get('/demo/users').then(e => {
       setusers(e.data);
       setfiltredUsers(e.data);
+      console.log(e.data);
     });
   }, []);
-  let inputRef = useRef();
+  // 3
   useEffect(() => {
     let handler = e => {
       if (!inputRef.current.contains(e.target))
@@ -76,6 +79,7 @@ function MessageMain() {
       document.removeEventListener('mousedown', handler);
     };
   });
+
   const displayUsers = e => {
     settargetElement(e.target);
     setusersStyle({ display: 'block' });
@@ -110,7 +114,7 @@ function MessageMain() {
             return (
               <Link to={`/users/${user._id}`}>
                 <div key={user.name} style={userStyle}>
-                  <h4>{user.name}</h4>
+                  <h4 key={user.name}>{user.name}</h4>
                   <img style={{ width: '50px' }} src={user.image} />
                 </div>
               </Link>
@@ -156,7 +160,7 @@ function MessageMain() {
             overflowY: 'auto',
             textAlign: 'justify',
             display: 'flex',
-            flexDirection:'column-reverse',
+            flexDirection: 'column-reverse',
             // top: '0',
             // bottom:'0',
           }}

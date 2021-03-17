@@ -12,6 +12,7 @@ import { EmailProvider } from './EmailContext';
 import './style/App.css';
 import { UserProvider } from './UserContext';
 import { CurrentUserProvider } from './CurrentUserContext';
+import Suggestion from './Suggestion';
 function App() {
   return (
     <UserProvider>
@@ -26,6 +27,9 @@ function App() {
                   </Route>
                   <Route path='/profile'>
                     <Profile />
+                  </Route>
+                  <Route path='/suggestion'>
+                    <Suggestion />
                   </Route>
                   <Route path='/home'>
                     <Header />

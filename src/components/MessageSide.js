@@ -3,8 +3,10 @@ import { UserContext } from './UserContext';
 import axios from './axios';
 import { auth } from './firebase';
 import Friend from './Friend';
+import { CurrentUserContext } from './CurrentUserContext';
 
 function MessageSide() {
+  const [current, setcurrent] = useContext(CurrentUserContext);
   const [nameEmail, setNameEmail] = useState('');
   const [friends, setfriends] = useState([
     {
@@ -30,6 +32,8 @@ function MessageSide() {
   };
   useEffect(() => {
     getEmail();
+    console.log('nameEmail' + nameEmail);
+    console.log(current);
   }, []);
   const fetchData = () => {
     return new Promise((resolve, reject) => {
@@ -86,7 +90,7 @@ function MessageSide() {
       </div>
       <div className='friends'>
         {friends.map((friend) => {
-          return <Friend name={friend.name} image={friend.image}/>;
+          return <Friend id={friend._id} name={friend.name} image={friend.image}/>;
         })}
       </div>
     </div>

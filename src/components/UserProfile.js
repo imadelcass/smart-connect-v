@@ -30,9 +30,11 @@ function UserProfile() {
   // add friend request for every user;
   const askToBefriend = () => {
     db.collection('users').doc(user.idUser).collection('friendsRequest').add({
-      email: current,
+      name: current.name,
+      email: current.email,
+      age: current.age,
+      image: current.image,
     });
-    console.log(current);
   };
 
   return (

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './style/Header.css';
-
+import Badge from '@material-ui/core/Badge';
+import NotificationsIcon from '@material-ui/icons/Notifications';
 function Header() {
   return (
     <div className='header'>
@@ -23,10 +24,14 @@ function Header() {
             <Link to='/message'>Message</Link>
           </li>
           <li className='nav__item'>
-            <a href='#'>suggestion</a>
+            <Link to='/login'>login</Link>
           </li>
           <li className='nav__item'>
-            <Link to='/login'>login</Link>
+            <Link to='/suggestion'>
+              <Badge badgeContent={4} color='primary'>
+                <NotificationsIcon />
+              </Badge>
+            </Link>
           </li>
         </ul>
       </div>
