@@ -50,7 +50,6 @@ function CompletProfile() {
           image: profileImage,
           name: name,
           id: id,
-
         });
         history.push('/profile');
       })
@@ -99,7 +98,6 @@ function CompletProfile() {
 
   auth.onAuthStateChanged(user => {
     setNameEmail(user.email);
-    console.log(user.email);
   });
   return (
     <div className='completProfile'>

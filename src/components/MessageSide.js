@@ -1,67 +1,28 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { UserContext } from './UserContext';
-import axios from './axios';
-import { auth } from './firebase';
 import Friend from './Friend';
 import { CurrentUserContext } from './CurrentUserContext';
+import { db } from './firebase';
+import WaitData from './WaitData';
 
 function MessageSide() {
-  const [current, setcurrent] = useContext(CurrentUserContext);
-  const [nameEmail, setNameEmail] = useState('');
-  const [friends, setfriends] = useState([
-    {
-      _id: '604608d1842ad404403d27f2',
-      idUser: '8U5fFFvEHOcIVq54Wt6S',
-      name: 'mohamed elcass',
-      image:
-        'https://firebasestorage.googleapis.com/v0/b/clone-12b84.appspot.com/o/images%2Fimages.jpg?alt=media&token=3fa25ca0-85d8-4bd4-9d36-0694db25013b',
-      email: 'mohamed@gmail.com',
-      age: '45',
-    },
-  ]);
-  const [user, setuser] = useState({
-    name: '',
-    email: '',
-    image: '',
-    idUser: '',
-  });
-  const getEmail = () => {
-    auth.onAuthStateChanged(user => {
-      setNameEmail(user.email);
-    });
-  };
+  const [current, friendsReq] = useContext(CurrentUserContext);
+  const [friends, setfriends] = useState([]);
+  const [dataState, setdataState] = useState(false);
+  // get all friends from friendsList collection in firestore:
   useEffect(() => {
-    getEmail();
-    console.log('nameEmail' + nameEmail);
-    console.log(current);
-  }, []);
-  const fetchData = () => {
-    return new Promise((resolve, reject) => {
-      resolve(axios.get('/demo/users'));
-    });
-  };
-
-  const getUser = users => {
-    return new Promise((resolve, reject) => {
-      users.filter(user => {
-        if (user.email == nameEmail) {
-          resolve(user);
-        }
-      });
-    });
-  };
-
-  fetchData()
-    .then(users => getUser(users.data))
-    .then(user =>
-      setuser({
-        name: user.name,
-        email: user.email,
-        image: user.image,
-        idUser: user.idUser,
-      })
-    );
-
+    if (current.id == undefined) {
+      setdataState(false);
+    } else {
+      db.collection('users')
+        .doc(current.id)
+        .collection('friendsList')
+        .onSnapshot(snap => {
+          setfriends(snap.docs.map(friend => friend.data()));
+        });
+      setdataState(true);
+    }
+  }, [current]);
   return (
     <div
       style={{
@@ -82,19 +43,77 @@ function MessageSide() {
             height: '60px',
             borderRadius: '50%',
           }}
-          src={user.image}
+          src={current.image}
         />
         <h2 style={{ paddingLeft: '20px', position: 'relative', top: '10px' }}>
           Discussions
         </h2>
       </div>
       <div className='friends'>
-        {friends.map((friend) => {
-          return <Friend id={friend._id} name={friend.name} image={friend.image}/>;
-        })}
+        {!dataState ? (
+          <WaitData />
+        ) : (
+          friends.map(friend => {
+            return (
+              <Friend
+                key={friend.id}
+                value={friend.id}
+                name={friend.name}
+                image={friend.image}
+              />
+            );
+          })
+        )}
       </div>
     </div>
   );
 }
 
 export default MessageSide;
+
+// const [nameEmail, setNameEmail] = useState('');
+// const [imgUser, setimgUser] = useState('');
+// const abortController = new AbortController();
+// const signal = abortController.signal;
+// const [user, setuser] = useState('');
+// useEffect(() => {
+//   auth.onAuthStateChanged(user => {
+//     setNameEmail(user.email);
+//   });
+// }, []);
+// const fetchData = new Promise((resolve, reject) => {
+//     resolve(axios.get('/demo/users', { signal: signal }));
+//   });
+// const getUser = users => {
+//     users.filter(user => {
+//       if (user.email == nameEmail) {
+//         console.log(user);
+//         setuser(user);
+//       }
+//   });
+// };
+//   fetchData
+//   .then(users => {
+//     console.log(users.data);
+//   //   users.data.map(user => {
+//   //     if (user.email == nameEmail) {
+//   //       setuser(user);
+//   //     }
+//   // });
+// })
+// function getuserdata(user) {
+//   return user.email == nameEmail;
+// }
+// let data = [];
+// useEffect(async () => {
+//   const response = await fetch('https://creat-api.herokuapp.com/demo/users', { signal: signal });
+//   data = await response.json();
+//   // console.log(data);
+//   setuser(data.filter(getuserdata))
+//   console.log(user);
+
+//    //clean
+//   return function cleanup() {
+//     abortController.abort();
+//   };
+// }, []);

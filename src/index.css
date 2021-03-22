@@ -1,0 +1,100 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+:root {
+  /* Color */
+  --colrThr: #ef8d91;
+  --colrTwo: #f3e2d3;
+  --colrOne: #bed1d2;
+  --colrFor: #8fbcb7;
+  --colTwoLight: #f3e2d36c;
+  --colrTrans : #0099FF;
+  --colrRecei : #E4E6EB;
+  /* box shadow */
+  --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  /* radius */
+  --radius: 0.25rem;
+}
+.margin__bottom {
+  margin-bottom: 40px;
+}
+.friendReq__container {
+  display: grid;
+  place-items: center;
+}
+.friendReq {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28rem;
+  height: 6rem;
+  padding-bottom: 0.7rem;
+  border-radius: var(--radius);
+  box-shadow: var(--light-shadow);
+  margin-bottom: 2rem;
+}
+.friendReq:hover {
+  box-shadow: var(--dark-shadow);
+}
+.friendReq__img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  position: relative;
+  top: 5px;
+}
+.friendReq__info {
+  margin-left: 30px;
+  color: var(--colrThr);
+  letter-spacing: 00.1rem;
+}
+.friendReq__btns {
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.friendReq__btnReject,
+.friendReq__btnAccept {
+  border-radius: var(--radius);
+  width: 5rem;
+  padding: 2px 9px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  background: var(--colTwoLight);
+  font-weight: 500;
+}
+.friendReq__btnReject:hover,
+.friendReq__btnAccept:hover {
+  color: var(--colrTwo);
+  background: var(--colrThr);
+}
+.friendReq__btnAccept {
+  margin-top: 0.5rem;
+}
+.friendReq__btnReject {
+  margin-top: 1.2rem;
+}
+/* WaitData component*/
+.waitData {
+  display: grid;
+  place-items: center;
+}
+/* Friend component */
+.friend {
+  display: flex;
+  box-shadow: var(--light-shadow);
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.friend:hover {
+  box-shadow: var(--dark-shadow);
+}

@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import './style/Header.css';
 import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import { CurrentUserContext } from './CurrentUserContext';
 function Header() {
+  const [current, friendsReq] = useContext(CurrentUserContext);
+
   return (
     <div className='header'>
       <div className='header__logo'>
@@ -28,7 +31,7 @@ function Header() {
           </li>
           <li className='nav__item'>
             <Link to='/suggestion'>
-              <Badge badgeContent={4} color='primary'>
+              <Badge badgeContent={friendsReq.length} color='primary'>
                 <NotificationsIcon />
               </Badge>
             </Link>

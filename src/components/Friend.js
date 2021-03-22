@@ -1,23 +1,37 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { CurrentUserContext } from './CurrentUserContext';
+import { DocumentContext } from './DocumentContext';
+import { db } from './firebase';
 
-function Friend({id, name, image }) {
-
+function Friend({value, name, image }) {
+  const [document, setDocument] = useContext(DocumentContext);
+    const [current, friendsReq] = useContext(CurrentUserContext);
   const displayMessages = e => {
-    
-  }
-
+    db.collection('friends')
+      .doc(current.id+value)
+      .get()
+      .then(doc => {
+       if (doc.exists) {
+        //  console.log('yes');
+         setDocument({
+             state: true,
+             id: current.id+value,
+           });
+          } 
+          else{
+          // console.log('no');
+          setDocument({
+            state: true,
+            id: value+current.id,
+          });
+        }
+      });
+  };
 
   return (
     <div
-      key ={id}
+    className='friend'
       onClick={displayMessages}
-      style={{
-        display: 'flex',
-        border: '1px solid #333',
-        borderRadius: '10px',
-        padding: '5px',
-        cursor: 'pointer',
-      }}
     >
       <img
         style={{
@@ -31,7 +45,7 @@ function Friend({id, name, image }) {
       />
       <div>
         <h3 style={{ paddingBottom: '5px' }}>{name}</h3>
-        <h5>on ligne</h5>
+        <h5 style={{color: 'var(--colrThr)'}}>on ligne</h5>
       </div>
     </div>
   );

@@ -1,32 +1,44 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { auth, db } from './firebase';
 
 export const CurrentUserContext = createContext();
-//yehh
 export const CurrentUserProvider = props => {
   const [current, setcurrent] = useState({});
-  auth.onAuthStateChanged(user => {
-    db.collection('users')
-      .get()
-      .then(docs => {
-        docs.docChanges().forEach(docs => {
-          if (docs.doc.data().email == user.email) {
-            setcurrent(docs.doc.data())
-          }
-        });
+  const [friendsReq, setfriendsReq] = useState([]);
+  // get the current user
+  const getCurrentUser = () => {
+    return new Promise((resolve, reject) => {
+      auth.onAuthStateChanged(user => {
+        db.collection('users')
+          .get()
+          .then(docs => {
+            docs.docChanges().some(docs => {
+              if (user == null) {
+                return true;
+              } else if (docs.doc.data().email == user.email) {
+                setcurrent(docs.doc.data());
+                resolve(docs.doc.data().id);
+              }
+            });
+          });
       });
-  });
+    });
+  };
+  useEffect(() => {
+    getCurrentUser().then(id => {
+      // get all friends request
+      db.collection('users')
+        .doc(id)
+        .collection('friendsRequest')
+        .onSnapshot(snapshot => {
+          setfriendsReq(snapshot.docs.map(doc => doc.data()));
+        });
+    });
+  }, []);
+
   return (
-    <CurrentUserContext.Provider value={[current, setcurrent]}>
+    <CurrentUserContext.Provider value={[current, friendsReq]}>
       {props.children}
     </CurrentUserContext.Provider>
   );
 };
-// setcurrent(
-//   docs.docChanges().filter(doc => {
-//     if (doc.doc.data().email == user.email) {
-//       return doc;
-//     }
-//   })
-// );
-// console.log(current);

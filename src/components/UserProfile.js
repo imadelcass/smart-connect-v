@@ -4,11 +4,12 @@ import { useParams } from 'react-router-dom';
 import { auth, db } from './firebase';
 import Header from './Header';
 import { CurrentUserContext } from './CurrentUserContext';
+import { Button } from '@material-ui/core';
 
 function UserProfile() {
   const [user, setuser] = useState('');
-  const [current, setcurrent] = useContext(CurrentUserContext);
-  // const [currentUser, setcurrentUser] = useContext(urrentUserContext);
+  const [askBtnState, setaskBtnState] = useState(true);
+  const [current, friendsReq] = useContext(CurrentUserContext);
   const profileBackground = require('./img/logo.png').default;
   const styleGround = {
     width: '100%',
@@ -23,18 +24,40 @@ function UserProfile() {
     borderRadius: '50%',
   };
   const { id } = useParams();
+  const abortController = new AbortController();
+  const signal = abortController.signal;
+  useEffect(() => {
+    axios
+      .get(`/demo/users/${id}`, { signal, signal })
+      .then(user => setuser(user.data));
+    //clean
+    return function cleanup() {
+      abortController.abort();
+    };
+  }, [id]);
 
   useEffect(() => {
-    axios.get(`/demo/users/${id}`).then(user => setuser(user.data));
-  }, [id]);
+    if (current.id == undefined) {
+      setaskBtnState(true);
+
+    } else if (current.id != undefined) {
+      setaskBtnState(false);
+    }
+  }, [current]);
+
   // add friend request for every user;
   const askToBefriend = () => {
-    db.collection('users').doc(user.idUser).collection('friendsRequest').add({
-      name: current.name,
-      email: current.email,
-      age: current.age,
-      image: current.image,
-    });
+    db.collection('users')
+      .doc(user.idUser)
+      .collection('friendsRequest')
+      .doc(current.id)
+      .set({
+        id: current.id,
+        name: current.name,
+        email: current.email,
+        age: current.age,
+        image: current.image,
+      });
   };
 
   return (
@@ -60,7 +83,14 @@ function UserProfile() {
           <h3>{`Email : ${user.email}`}</h3>
         </div>
         <div className='profile__auth'>
-          <button onClick={askToBefriend}>ask to be friends</button>
+          <Button
+            variant='contained'
+            color='primary'
+            disabled={askBtnState}
+            onClick={askToBefriend}
+          >
+            ask to be friends
+          </Button>
         </div>
       </div>
     </div>
