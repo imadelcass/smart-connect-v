@@ -4,11 +4,11 @@ import { CurrentUserContext } from './CurrentUserContext';
 import { DocumentContext } from './DocumentContext';
 import { db } from './firebase';
 
-function Friend({ value, name, image, setFriend }) {
+function Friend({ value, name, image, age, setFriend }) {
   const [document, setDocument] = useContext(DocumentContext);
   const [current, friendsReq] = useContext(CurrentUserContext);
   const displayMessages = e => {
-    setFriend({ name: name, image: image });
+    setFriend({ name: name, image: image, age: age, friendClicked: true });
     db.collection('friends')
       .doc(current.id + value)
       .get()

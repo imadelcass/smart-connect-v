@@ -4,16 +4,38 @@
   margin-top: 3rem;
 }
 .friend__card{
-  width: 80%;
+  width: 100%;
   height: 50vh;
+  padding: 1rem 1rem;
   box-shadow: var(--light-shadow);
-  display: grid;
-  place-items: center;
+  border-radius: 5px;
+  
 }
-.friend__card >img{
+.friend__cardImg{
   width: 10rem;
   height: 10rem;
   box-shadow: var(--light-shadow);
   border-radius: 50%;
   object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+}
+.friend__cardName{
+  text-align: center;
+}
+.friend__cardAbout{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  letter-spacing: 1px;
+}
+.friend__cardAbout >span{
+  font-weight: 800;
+}
+.friend__cardButton{
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
