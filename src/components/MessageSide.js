@@ -24,30 +24,10 @@ function MessageSide() {
     }
   }, [current]);
   return (
-    <div
-      style={{
-        padding: '20px',
-        width: '30vw',
-        height: '90vh',
-        borderRight: '1px solid #333',
-      }}
-    >
-      <div
-        style={{ display: 'flex', marginBottom: '20px' }}
-        className='Message__head'
-      >
-        <img
-          style={{
-            objectFit: 'cover',
-            width: '60px',
-            height: '60px',
-            borderRadius: '50%',
-          }}
-          src={current.image}
-        />
-        <h2 style={{ paddingLeft: '20px', position: 'relative', top: '10px' }}>
-          Discussions
-        </h2>
+    <div className='MessageSide'>
+      <div className='MessageSide__profile'>
+        <img className='MessageSide__profileImg' src={current.image} />
+        <h2 className='MessageSide__profileTitle'>Discussions</h2>
       </div>
       <div className='friends'>
         {!dataState ? (
@@ -70,50 +50,3 @@ function MessageSide() {
 }
 
 export default MessageSide;
-
-// const [nameEmail, setNameEmail] = useState('');
-// const [imgUser, setimgUser] = useState('');
-// const abortController = new AbortController();
-// const signal = abortController.signal;
-// const [user, setuser] = useState('');
-// useEffect(() => {
-//   auth.onAuthStateChanged(user => {
-//     setNameEmail(user.email);
-//   });
-// }, []);
-// const fetchData = new Promise((resolve, reject) => {
-//     resolve(axios.get('/demo/users', { signal: signal }));
-//   });
-// const getUser = users => {
-//     users.filter(user => {
-//       if (user.email == nameEmail) {
-//         console.log(user);
-//         setuser(user);
-//       }
-//   });
-// };
-//   fetchData
-//   .then(users => {
-//     console.log(users.data);
-//   //   users.data.map(user => {
-//   //     if (user.email == nameEmail) {
-//   //       setuser(user);
-//   //     }
-//   // });
-// })
-// function getuserdata(user) {
-//   return user.email == nameEmail;
-// }
-// let data = [];
-// useEffect(async () => {
-//   const response = await fetch('https://creat-api.herokuapp.com/demo/users', { signal: signal });
-//   data = await response.json();
-//   // console.log(data);
-//   setuser(data.filter(getuserdata))
-//   console.log(user);
-
-//    //clean
-//   return function cleanup() {
-//     abortController.abort();
-//   };
-// }, []);

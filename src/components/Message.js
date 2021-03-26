@@ -8,12 +8,8 @@ function Message() {
     <div>
       <Header />
       <div style={{ display: 'flex' }}>
-        <div style={{flex : '1'}}>
           <MessageSide />
-        </div>
-        <div style={{flex : '2'}}>
           <MessageMain />
-        </div>
       </div>
     </div>
   );

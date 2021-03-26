@@ -1,51 +1,38 @@
+import { Avatar } from '@material-ui/core';
 import React, { useContext, useState } from 'react';
 import { CurrentUserContext } from './CurrentUserContext';
 import { DocumentContext } from './DocumentContext';
 import { db } from './firebase';
 
-function Friend({value, name, image }) {
+function Friend({ value, name, image, setFriend }) {
   const [document, setDocument] = useContext(DocumentContext);
-    const [current, friendsReq] = useContext(CurrentUserContext);
+  const [current, friendsReq] = useContext(CurrentUserContext);
   const displayMessages = e => {
+    setFriend({ name: name, image: image });
     db.collection('friends')
-      .doc(current.id+value)
+      .doc(current.id + value)
       .get()
       .then(doc => {
-       if (doc.exists) {
-        //  console.log('yes');
-         setDocument({
-             state: true,
-             id: current.id+value,
-           });
-          } 
-          else{
-          // console.log('no');
+        if (doc.exists) {
           setDocument({
             state: true,
-            id: value+current.id,
+            id: current.id + value,
+          });
+        } else {
+          setDocument({
+            state: true,
+            id: value + current.id,
           });
         }
       });
   };
 
   return (
-    <div
-    className='friend'
-      onClick={displayMessages}
-    >
-      <img
-        style={{
-          objectFit: 'cover',
-          width: '60px',
-          height: '60px',
-          borderRadius: '50%',
-          marginRight: '15px',
-        }}
-        src={image}
-      />
+    <div className='friend' onClick={displayMessages}>
+      <img className='friendImg' src={image} />
       <div>
-        <h3 style={{ paddingBottom: '5px' }}>{name}</h3>
-        <h5 style={{color: 'var(--colrThr)'}}>on ligne</h5>
+        <h3 className='friendName'>{name}</h3>
+        <h5 className='friendOnligne'>on ligne</h5>
       </div>
     </div>
   );

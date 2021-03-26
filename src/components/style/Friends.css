@@ -1,0 +1,19 @@
+.Friends {
+}
+.Friends__container {
+  margin-top: 3rem;
+}
+.friend__card{
+  width: 80%;
+  height: 50vh;
+  box-shadow: var(--light-shadow);
+  display: grid;
+  place-items: center;
+}
+.friend__card >img{
+  width: 10rem;
+  height: 10rem;
+  box-shadow: var(--light-shadow);
+  border-radius: 50%;
+  object-fit: cover;
+}

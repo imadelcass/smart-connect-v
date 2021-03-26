@@ -42,3 +42,4 @@ export const CurrentUserProvider = props => {
     </CurrentUserContext.Provider>
   );
 };
+

@@ -14,6 +14,7 @@ import { UserProvider } from './UserContext';
 import { CurrentUserProvider } from './CurrentUserContext';
 import Suggestion from './Suggestion';
 import { DocumentContextProvider } from './DocumentContext';
+import Friends from './Friends';
 function App() {
   return (
     <DocumentContextProvider>
@@ -44,6 +45,9 @@ function App() {
                     <Route path='/signup'>
                       <Header />
                       <Signup />
+                    </Route>
+                    <Route path='/friends'>
+                      <Friends />
                     </Route>
                     <Route path='/users/:id'>
                       <UserProfile />

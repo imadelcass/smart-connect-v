@@ -28,6 +28,9 @@
     padding: 0 9%;
     text-transform: capitalize;
 }
+.header__nav{
+    display: flex;
+}
 .nav__list{
     display: flex;
     justify-content: space-evenly;

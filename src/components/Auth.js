@@ -9,6 +9,14 @@ function Auth() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [nameEmail, setNameEmail] = useContext(EmailContext)
+    const authInput = {
+        width: '100%',
+        padding: '12px 20px',
+        margin: '8px 0',
+        display: 'block',
+        border: '1px solid #ccc',
+        boxSizing: 'border-box',
+      }
 
     const newEmail =  e => {
         setEmail(e.target.value)
@@ -38,11 +46,13 @@ function Auth() {
                 <div className="login__container">
                     <h3>Log In</h3>
                     <label htmlFor="">User</label>
-                    <input type="text"
+                    <input 
+                    style={authInput}
+                    type="text"
                     onChange={newEmail}
                     placeholder="Email"/>
                     <label htmlFor="">Password</label>
-                    <input type="password"
+                    <input style={authInput} type="password"
                     onChange={e => setPassword(e.target.value)}
                     placeholder="Password"/>
                     <button className="login__btn"
